@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="converty">
+  <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
+    <script type="text/javascript" src="/js/converty.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600|Lato:400,700' rel='stylesheet' type='text/css'></link>
+    <link href='/css/styles.css' rel='stylesheet' type='text/css'></link>
+  </head>
+
+  <body>
+    <header>
+      <h1>Converty</h1>
+    </header>
+    <section ng-controller="MainController">
+      <p>
+        Easily convert text from one format to another! Just select the
+        converter(s) you want to use on the left and then type or paste the
+        text to be converted below.
+      </p>
+      <p>
+        Selecting multiple converters will apply them in the order they were
+        toggled.
+      </p>
+
+      <section class="convertors-container">
+        <ul class="converters">
+          <li ng-repeat="converter in availableConverters" ng-click="toggleConverter(converter)" ng-class="{active: isConverterActive(converter)}">
+            <label><a ng-bind="converter.name"></a></label>
+            <span class="toggle"></span>
+          </li>
+        </ul>
+        <div class="all-off-container">
+          <a ng-click="disableAllConverters()" ng-show="activeConverters.length">Toggle All OFF</a>
+        </div>
+      </section>
+      
+      <section class="fields-container">
+        <textarea ng-model="input" placeholder="Type or paste your text here."></textarea>
+
+        <div class="active-converters">
+          <span ng-repeat="converter in activeConverters">
+            <button ng-bind="converter.name" ng-click="toggleConverter(converter)" ng-class="{error: converter.error}" title="Click to remove {{converter.name}}"></button>
+            <span ng-show="!$last">&gt;</span>
+          </span>
+          <div class="no-converters" ng-hide="activeConverters.length">No converters selected.</div>
+        </div>
+
+        <textarea ng-model="output" readonly placeholder="Conversion will appear here."></textarea>
+      </section>
+    </section>
+  </body>
+</html>

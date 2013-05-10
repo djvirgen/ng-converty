@@ -1,0 +1,143 @@
+html{
+  background: #f2f2f2;
+}
+
+body{
+  color: #222;
+  background: #fff;
+  width: 880px;
+  margin: 0 auto;
+  padding: 40px;
+  font-family: Lato;
+  font-size: 100%;
+  padding-bottom: 180px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.25s ease;
+}
+
+a{
+  color: #36c;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #47d;
+}
+
+input, button{
+  font-family: inherit;
+  font-size: inherit;
+}
+
+textarea{
+  font-family: consolas;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 200px;
+  font-size: 12px;
+}
+
+.convertors-container{
+  float: left;
+  width: 220px;
+}
+
+.fields-container{
+  margin-left: 250px;
+}
+
+ul.converters{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+ul.converters li{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  color: #222;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition: all 0.5s ease;
+}
+
+ul.converters li label{
+  cursor: pointer;
+}
+
+ul.converters span.toggle{
+  display: block;
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  width: 44px;
+  height: 20px;
+  background: #f2f2f2;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+ul.converters span.toggle::before{
+  display: block;
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 20px;
+  background: #e7e7e7;
+  border: 1px solid #ccc;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  -webkit-transition: all 0.25s ease;
+}
+
+ul.converters li:hover{
+  background: #f2f4f6;
+}
+
+ul.converters li:hover span.toggle::before{
+  background: #faa;
+  border: 1px solid #c77;
+}
+
+ul.converters li.active span.toggle::before{
+  left: 24px;
+  background: #4c4;
+  border-color: #2a2;
+}
+
+ul.converters button.active{
+  background: #36d;
+  color: #fff;
+}
+
+.all-off-container{
+  text-align: center;
+  padding: 5px;
+  margin-top: 8px;
+}
+
+.active-converters{
+  padding: 10px 0;
+  font-size: 85%;
+}
+
+.active-converters button{
+  background: #f2f4f6;
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+}
+
+.active-converters .error{
+  background: #f00;
+}
+
+.no-converters{
+  padding: 5px 0;
+}
