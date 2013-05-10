@@ -19,6 +19,7 @@ body{
 
 header{
   overflow: hidden;
+  border-bottom: 2px solid #eee;
 }
 
 header h1{
