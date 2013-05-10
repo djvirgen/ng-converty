@@ -4,6 +4,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
     <script type="text/javascript" src="/js/converty.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600|Lato:400,700' rel='stylesheet' type='text/css'></link>
+    <link href="/css/font-awesome.min.css" rel='stylesheet' type='text/css'></link>
     <link href='/css/styles.css' rel='stylesheet' type='text/css'></link>
   </head>
 
@@ -39,7 +40,7 @@
         <div class="active-converters">
           <span ng-repeat="converter in activeConverters">
             <button ng-bind="converter.name" ng-click="toggleConverter(converter)" ng-class="{error: converter.error}" title="Click to remove {{converter.name}}"></button>
-            <span ng-show="!$last">&gt;</span>
+            <span ng-hide="$last" class="icon-caret-right"></span>
           </span>
           <div class="no-converters" ng-hide="activeConverters.length">No converters selected.</div>
         </div>
@@ -48,6 +49,6 @@
       </section>
     </section>
 
-    <a href="https://github.com/djvirgen/ng-converty" class="forkme">Fork me on GitHub!</a>
+    <a href="https://github.com/djvirgen/ng-converty" class="forkme"><i class="icon-github icon-large"></i> Fork me on GitHub!</a>
   </body>
 </html>
