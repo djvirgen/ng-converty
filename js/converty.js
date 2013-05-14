@@ -76,6 +76,18 @@
         }
       },
       {
+        name: 'Base64 Encode',
+        converter: function(value) {
+          return window.btoa(value);
+        }
+      },
+      {
+        name: 'Base64 Decode',
+        converter: function(value) {
+          return window.atob(value);
+        }
+      },
+      {
         name: 'JSON Pretty Print',
         converter: function(value) {
           var obj = JSON.parse(value);
