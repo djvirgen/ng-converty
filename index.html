@@ -15,7 +15,7 @@
         Easily convert text from one format to another!
       </p>
     </header>
-    <section ng-controller="MainController">
+    <section id="content" ng-controller="MainController">
       <p>Select the converter(s) you want to use on the left and then type
         or paste the text to be converted below. Selecting multiple converters
         will apply them in the order they were enabled.
@@ -23,9 +23,26 @@
 
       <section class="convertors-container">
         <ul class="converters">
-          <li ng-repeat="converter in availableConverters" ng-click="toggleConverter(converter)" ng-class="{active: isConverterActive(converter)}">
-            <label><a ng-bind="converter.name"></a></label>
-            <span class="toggle"></span>
+          <li ng-repeat="converter in availableConverters" ng-class="{active: isConverterActive(converter)}">
+            <div ng-click="toggleConverter(converter)">
+              <label><a ng-bind="converter.name"></a></label>
+              <span class="toggle"></span>
+            </div>
+            <ul class="params" ng-show="isParamsShown(converter)">
+              <li class="param" ng-repeat="param in converter.params">
+                <span class="param-name" ng-bind="param.label"></span>
+                <span ng-switch on="param.type">
+
+                  <span ng-switch-when="boolean">
+                    <input type="checkbox" ng-model="param.value" ng-change="buildOutput()" />
+                  </span>
+
+                  <span ng-switch-default>
+                    <input type="text" ng-model="param.value" ng-change="buildOutput()" />
+                  </span>
+                </span>
+              </li>
+            </ul>
           </li>
         </ul>
         <div class="all-off-container">
@@ -34,7 +51,7 @@
       </section>
       
       <section class="fields-container">
-        <textarea ng-model="input" placeholder="Type or paste your text here."></textarea>
+        <textarea ng-model="input" ng-change="buildOutput()" placeholder="Type or paste your text here."></textarea>
 
         <div class="active-converters">
           <span ng-repeat="converter in activeConverters">

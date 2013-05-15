@@ -27,6 +27,10 @@ header h1{
   padding-right: 20px;
 }
 
+#content{
+  overflow: hidden;
+}
+
 footer{
   margin-top: 20px;
   text-align: center;
@@ -81,7 +85,7 @@ ul.converters{
   list-style-type: none;
 }
 
-ul.converters li{
+ul.converters > li{
   margin: 0;
   padding: 0;
   width: 100%;
@@ -97,7 +101,7 @@ ul.converters li{
   transition: all 0.5s ease;
 }
 
-ul.converters li label{
+ul.converters > li label{
   cursor: pointer;
 }
 
@@ -133,20 +137,20 @@ ul.converters span.toggle::before{
   transition: all 0.25s ease;
 }
 
-ul.converters li:hover{
+ul.converters > li:hover{
   background: #f2f4f6;
 }
 
-ul.converters li:hover span.toggle{
+ul.converters > li:hover span.toggle{
   border-color: #aaa;
 }
 
-ul.converters li:hover span.toggle::before{
+ul.converters > li:hover span.toggle::before{
   background: #faa;
   border: 1px solid #c77;
 }
 
-ul.converters li.active span.toggle::before{
+ul.converters > li.active span.toggle::before{
   left: 24px;
   background: #4c4;
   border-color: #2a2;
@@ -155,6 +159,25 @@ ul.converters li.active span.toggle::before{
 ul.converters button.active{
   background: #36d;
   color: #fff;
+}
+
+ul.params{
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+ul.params li{
+  font-size: 12px;
+}
+
+ul.params span.param-name{
+  display: inline-block;
+  width: 80px;
+}
+
+ul.params input{
+  width: 131px;
 }
 
 .all-off-container{

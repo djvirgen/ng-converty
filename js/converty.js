@@ -8,15 +8,20 @@
     $scope.input = '';
     $scope.output = '';
 
-    var buildOutput = function() {
+    $scope.buildOutput = function() {
       var value = $scope.input;
       
       angular.forEach($scope.activeConverters, function(converter) {
         try {
-          var converted = converter.converter(value);
+          var args = [value];
+          angular.forEach(converter.params, function(param) {
+            args.push(param.value);
+          });
+          var converted = converter.converter.apply({}, args);
           converter.error = false;
           value = converted;
         } catch(e) {
+          console.log('Error', e);
           converter.error = true;
         }
       });
@@ -88,6 +93,30 @@
         }
       },
       {
+        name: 'Replace',
+        params: [
+          {
+            label: 'Search',
+            value: 'foo'
+          },
+          {
+            label: 'Replace',
+            value: 'bar'
+          },
+          {
+            type: 'boolean',
+            label: 'Regex?',
+            value: false
+          }
+        ],
+        converter: function(value, search, replace, isRegex) {
+          if (isRegex) {
+            search = new RegExp(search);
+          }
+          return value.replace(search, replace);
+        }
+      },
+      {
         name: 'JSON Pretty Print',
         converter: function(value) {
           var obj = JSON.parse(value);
@@ -105,20 +134,20 @@
         $scope.activeConverters.splice(index, 1);
       }
 
-      buildOutput();
+      $scope.buildOutput();
     };
 
     $scope.disableAllConverters = function() {
       $scope.activeConverters = [];
-      buildOutput();
+      $scope.buildOutput();
     };
 
     $scope.isConverterActive = function(converter) {
       return -1 !== $scope.activeConverters.indexOf(converter);
     };
 
-    $scope.$watch('input', function() {
-      buildOutput();
-    });
+    $scope.isParamsShown = function(converter) {
+      return converter.params && $scope.isConverterActive(converter);
+    }
   });
 }());
