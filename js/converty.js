@@ -44,9 +44,20 @@
       },
       {
         name: 'HTML Encode',
-        converter: function(value) {
-          return angular.element('<div></div>').text(value).html();
-        }
+        converter: function(value, encodeQuotes) {
+          var encoded = angular.element('<div></div>').text(value).html();
+          if (encodeQuotes) {
+            encoded = encoded.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+          }
+          return encoded;
+        },
+        params: [
+          {
+            type: 'boolean',
+            label: 'Encode quotes',
+            value: false
+          }
+        ]
       },
       {
         name: 'HTML Decode',
@@ -97,23 +108,33 @@
         params: [
           {
             label: 'Search',
-            value: 'foo'
+            value: ''
           },
           {
             label: 'Replace',
-            value: 'bar'
+            value: ''
           },
           {
             type: 'boolean',
-            label: 'Regex?',
+            label: 'Case-insensitive',
+            value: 'false'
+          },
+          {
+            type: 'boolean',
+            label: 'Regex',
             value: false
           }
         ],
-        converter: function(value, search, replace, isRegex) {
-          if (isRegex) {
-            search = new RegExp(search);
+        converter: function(value, search, replace, caseInsensitive, isRegex) {
+          var flags = ['g'];
+          if (caseInsensitive) {
+            flags.push('i');
           }
-          return value.replace(search, replace);
+          if (!isRegex) {
+            search = search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+          }
+          var regex = new RegExp(search, flags.join(''));
+          return value.replace(regex, replace);
         }
       },
       {

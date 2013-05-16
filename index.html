@@ -24,21 +24,20 @@
       <section class="convertors-container">
         <ul class="converters">
           <li ng-repeat="converter in availableConverters" ng-class="{active: isConverterActive(converter)}">
-            <div ng-click="toggleConverter(converter)">
-              <label><a ng-bind="converter.name"></a></label>
+            <div class="toggler" ng-click="toggleConverter(converter)">
+              <a ng-bind="converter.name"></a>
               <span class="toggle"></span>
             </div>
             <ul class="params" ng-show="isParamsShown(converter)">
               <li class="param" ng-repeat="param in converter.params">
-                <span class="param-name" ng-bind="param.label"></span>
                 <span ng-switch on="param.type">
 
                   <span ng-switch-when="boolean">
-                    <input type="checkbox" ng-model="param.value" ng-change="buildOutput()" />
+                    <label><input type="checkbox" ng-model="param.value" ng-change="buildOutput()" /><span class="param-name" ng-bind="param.label"></span></label>
                   </span>
 
                   <span ng-switch-default>
-                    <input type="text" ng-model="param.value" ng-change="buildOutput()" />
+                    <input type="text" ng-model="param.value" ng-change="buildOutput()" placeholder="{{ param.label }}" />
                   </span>
                 </span>
               </li>
