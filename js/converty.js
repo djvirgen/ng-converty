@@ -32,15 +32,11 @@
     $scope.availableConverters = [
       {
         name: 'URI Encode',
-        converter: function(value) {
-          return encodeURIComponent(value);
-        }
+        converter: encodeURIComponent
       },
       {
         name: 'URI Decode',
-        converter: function(value) {
-          return decodeURIComponent(value);
-        }
+        converter: decodeURIComponent
       },
       {
         name: 'HTML Encode',
@@ -93,15 +89,11 @@
       },
       {
         name: 'Base64 Encode',
-        converter: function(value) {
-          return window.btoa(value);
-        }
+        converter: window.btoa
       },
       {
         name: 'Base64 Decode',
-        converter: function(value) {
-          return window.atob(value);
-        }
+        converter: window.atob
       },
       {
         name: 'Replace',
@@ -136,6 +128,22 @@
           var regex = new RegExp(search, flags.join(''));
           return value.replace(regex, replace);
         }
+      },
+      {
+        name: 'MD5',
+        converter: hex_md5
+      },
+      {
+        name: 'SHA1',
+        converter: hex_sha1
+      },
+      {
+        name: 'SHA256',
+        converter: hex_sha256
+      },
+      {
+        name: 'SHA512',
+        converter: hex_sha512
       },
       {
         name: 'JSON Pretty Print',
