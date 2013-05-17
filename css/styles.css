@@ -62,7 +62,7 @@ input, button{
 }
 
 textarea{
-  font-family: consolas;
+  font-family: consolas, inconsolata, monospace, fixed;
   width: 100%;
   padding: 10px;
   min-height: 200px;
