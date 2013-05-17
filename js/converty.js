@@ -6,7 +6,6 @@
   converty.controller('MainController', function($scope) {
     $scope.activeConverters = [];
     $scope.input = '';
-    $scope.output = '';
 
     $scope.buildOutput = function() {
       var value = $scope.input;
@@ -30,6 +29,40 @@
     };
 
     $scope.availableConverters = [
+      {
+        name: 'Search/Replace',
+        params: [
+          {
+            label: 'Search',
+            value: ''
+          },
+          {
+            label: 'Replace',
+            value: ''
+          },
+          {
+            type: 'boolean',
+            label: 'Case-insensitive',
+            value: false
+          },
+          {
+            type: 'boolean',
+            label: 'Regex',
+            value: false
+          }
+        ],
+        converter: function(value, search, replace, caseInsensitive, isRegex) {
+          var flags = ['g'];
+          if (caseInsensitive) {
+            flags.push('i');
+          }
+          if (!isRegex) {
+            search = search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+          }
+          var regex = new RegExp(search, flags.join(''));
+          return value.replace(regex, replace);
+        }
+      },
       {
         name: 'URI Encode',
         converter: encodeURIComponent
@@ -89,44 +122,14 @@
       },
       {
         name: 'Base64 Encode',
-        converter: window.btoa
+        converter: function(value) {
+          return window.btoa(value);
+        }
       },
       {
         name: 'Base64 Decode',
-        converter: window.atob
-      },
-      {
-        name: 'Replace',
-        params: [
-          {
-            label: 'Search',
-            value: ''
-          },
-          {
-            label: 'Replace',
-            value: ''
-          },
-          {
-            type: 'boolean',
-            label: 'Case-insensitive',
-            value: false
-          },
-          {
-            type: 'boolean',
-            label: 'Regex',
-            value: false
-          }
-        ],
-        converter: function(value, search, replace, caseInsensitive, isRegex) {
-          var flags = ['g'];
-          if (caseInsensitive) {
-            flags.push('i');
-          }
-          if (!isRegex) {
-            search = search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-          }
-          var regex = new RegExp(search, flags.join(''));
-          return value.replace(regex, replace);
+        converter: function(value) {
+          return window.atob(value);
         }
       },
       {
@@ -177,6 +180,6 @@
 
     $scope.isParamsShown = function(converter) {
       return converter.params && $scope.isConverterActive(converter);
-    }
+    };
   });
 }());

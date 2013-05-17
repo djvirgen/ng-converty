@@ -1,5 +1,5 @@
 html{
-  background: #38f;
+  background: #777;
 }
 
 body{
@@ -65,12 +65,19 @@ textarea{
   font-family: consolas, inconsolata, monospace, fixed;
   width: 100%;
   padding: 10px;
-  min-height: 200px;
+  min-height: 240px;
   font-size: 12px;
+  border: 1px solid #aaa;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -o-box-sizing: border-box;
   box-sizing: border-box;
+  outline: none;
+}
+
+textarea:focus{
+  border-color: #777;
+  box-shadow: inset 0 6px 6px -6px rgba(0, 0, 0, 0.5);
 }
 
 .convertors-container{
@@ -92,7 +99,7 @@ ul.converters > li{
   margin: 0;
   padding: 0;
   width: 100%;
-  padding: 8px;
+  padding: 0;
   background: transparent;
   color: #222;
   border: none;
@@ -104,6 +111,7 @@ ul.converters > li{
 }
 
 ul.converters > li .toggler{
+  padding: 6px 8px;
   cursor: pointer;
 }
 
@@ -170,7 +178,7 @@ ul.converters button.active{
 ul.params{
   list-style-type: none;
   margin: 0;
-  padding: 10px 0;
+  padding: 10px 8px;
 }
 
 ul.params li{
@@ -191,6 +199,10 @@ ul.params input[type=text]{
   text-align: center;
   padding: 5px;
   margin-top: 8px;
+}
+
+.all-off-container a{
+  color: #f00;
 }
 
 .active-converters{
