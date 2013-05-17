@@ -117,7 +117,7 @@
           {
             type: 'boolean',
             label: 'Case-insensitive',
-            value: 'false'
+            value: false
           },
           {
             type: 'boolean',
