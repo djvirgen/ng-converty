@@ -115,6 +115,21 @@ ul.converters > li .toggler{
   cursor: pointer;
 }
 
+ul.converters > li .toggler i{
+  margin-top: 2px;
+  float: left;
+  color: #bbb;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+ul.converters > li .toggler a{
+  display: block;
+  margin-left: 20px;
+}
+
 ul.converters > li .toggler label{
   cursor: pointer;
 }
@@ -168,6 +183,14 @@ ul.converters > li.active span.toggle::before{
   left: 24px;
   background: #4c4;
   border-color: #2a2;
+}
+
+ul.converters > li.active .toggler i{
+  color: #999;
+  -webkit-transform: rotateZ(90deg);
+  -moz-transform: rotateZ(90deg);
+  -o-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
 
 ul.converters button.active{

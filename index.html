@@ -7,6 +7,7 @@
     <script type="text/javascript" src="js/lib/jshash-2.2/sha1-min.js"></script>
     <script type="text/javascript" src="js/lib/jshash-2.2/sha256-min.js"></script>
     <script type="text/javascript" src="js/lib/jshash-2.2/sha512-min.js"></script>
+    <script type="text/javascript" src="js/lib/coffee-script/coffee-script.js"></script>
     <script type="text/javascript" src="/js/converty.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600|Lato:400,700" rel="stylesheet" type="text/css"></link>
     <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
@@ -30,6 +31,7 @@
         <ul class="converters">
           <li ng-repeat="converter in availableConverters" ng-class="{active: isConverterActive(converter)}">
             <div class="toggler" ng-click="toggleConverter(converter)">
+              <i class="icon-chevron-sign-right" ng-show="converter.params"></i>
               <a ng-bind="converter.name"></a>
               <span class="toggle"></span>
             </div>

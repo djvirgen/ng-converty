@@ -149,6 +149,12 @@
         converter: hex_sha512
       },
       {
+        name: 'Coffee -> JS',
+        converter: function(value) {
+          return CoffeeScript.compile(value);
+        }
+      },
+      {
         name: 'JSON Pretty Print',
         converter: function(value) {
           var obj = JSON.parse(value);
