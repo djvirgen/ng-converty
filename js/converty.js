@@ -30,7 +30,39 @@
 
     $scope.availableConverters = [
       {
-        name: 'Search/Replace',
+        name: 'Search',
+        params: [
+          {
+            label: 'Search',
+            value: ''
+          },
+          {
+            type: 'boolean',
+            label: 'Case-insensitive',
+            value: false
+          },
+          {
+            type: 'boolean',
+            label: 'Regex',
+            value: false
+          }
+        ],
+        converter: function(value, search, caseInsensitive, isRegex) {
+          if (!search.length) return value;
+          var flags = ['g'];
+          if (caseInsensitive) {
+            flags.push('i');
+          }
+          if (!isRegex) {
+            search = search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+          }
+          var regex = new RegExp(search, flags.join(''));
+          var result = value.match(regex);
+          return result ? result.join('\n') : '\n';
+        }
+      },
+      {
+        name: 'Replace',
         params: [
           {
             label: 'Search',
@@ -52,6 +84,7 @@
           }
         ],
         converter: function(value, search, replace, caseInsensitive, isRegex) {
+          if (!search.length) return value;
           var flags = ['g'];
           if (caseInsensitive) {
             flags.push('i');
