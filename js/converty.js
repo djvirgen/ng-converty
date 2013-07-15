@@ -3,9 +3,24 @@
 
   var converty = angular.module('converty', []);
 
-  converty.controller('MainController', function($scope) {
+  converty.factory('storage', function($window) {
+    var storage = {};
+
+    if ('localStorage' in $window && null != $window.localStorage) {
+      storage = $window.localStorage;
+    }
+
+    return storage;
+  });
+
+  converty.controller('MainController', function($scope, storage) {
     $scope.activeConverters = [];
-    $scope.input = '';
+    $scope.input = storage.input;
+
+    $scope.$watch('input', function(value) {
+      storage.input = value;
+      $scope.buildOutput();
+    });
 
     $scope.buildOutput = function() {
       var value = $scope.input;
@@ -220,5 +235,31 @@
     $scope.isParamsShown = function(converter) {
       return converter.params && $scope.isConverterActive(converter);
     };
+
+    $scope.$watch('activeConverters', function(converters) {
+      storage.activeConverters = JSON.stringify(converters);
+      $scope.buildOutput();
+    }, true);
+
+    // Enable all stored active converters
+    (function() {
+      if (storage.activeConverters) {
+        try {
+          var activeConverters = JSON.parse(storage.activeConverters);
+        } catch (e) {
+          return console.log("Unable to parse active converters from local storage");
+        }
+        angular.forEach(activeConverters, function(activeConverter) {
+          angular.forEach($scope.availableConverters, function(converter) {
+            if (converter.name != activeConverter.name) return;
+            if (converter.params && activeConverter.params) {
+              // Reload params
+              converter.params = activeConverter.params;
+            }
+            $scope.activeConverters.push(converter);
+          });
+        });
+      }
+    })();
   });
 }());

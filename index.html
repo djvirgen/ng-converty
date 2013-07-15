@@ -33,11 +33,11 @@
                 <span ng-switch on="param.type">
 
                   <span ng-switch-when="boolean">
-                    <label><input type="checkbox" ng-model="param.value" ng-change="buildOutput()" /><span class="param-name" ng-bind="param.label"></span></label>
+                    <label><input type="checkbox" ng-model="param.value" /><span class="param-name" ng-bind="param.label"></span></label>
                   </span>
 
                   <span ng-switch-default>
-                    <input type="text" ng-model="param.value" ng-change="buildOutput()" placeholder="{{ param.label }}" />
+                    <input type="text" ng-model="param.value" placeholder="{{ param.label }}" />
                   </span>
                 </span>
               </li>
@@ -50,7 +50,7 @@
       </section>
       
       <section class="fields-container">
-        <textarea ng-model="input" ng-change="buildOutput()" placeholder="Type or paste your text here."></textarea>
+        <textarea ng-model="input" placeholder="Type or paste your text here."></textarea>
 
         <div class="active-converters">
           <span ng-repeat="converter in activeConverters">
