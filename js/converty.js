@@ -43,7 +43,9 @@
     $scope.fields = { input: storage.input };
 
     $scope.$watch('fields.input', function(value) {
-      storage.input = value;
+      if (null != value) {
+        storage.input = value;
+      }
       $scope.buildOutput();
     });
 
