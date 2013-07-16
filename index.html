@@ -3,11 +3,12 @@
   <head>
     <title>Converty - Easily convert text</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600|Lato:400,700" rel="stylesheet" type="text/css"></link>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css"></link>
     <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
     <link href="/css/styles.css" rel="stylesheet" type="text/css"></link>
   </head>
 
-  <body>
+  <body ng-cloak>
     <header>
       <h1>Converty</h1>
       <p>
@@ -15,7 +16,7 @@
       </p>
     </header>
     <section id="content" ng-controller="MainController">
-      <p>Select the converter(s) you want to use on the left and then type
+      <p class="info">Select the converter(s) you want to use on the left and then type
         or paste the text to be converted below. Selecting multiple converters
         will apply them in the order they were enabled.
       </p>
@@ -50,7 +51,7 @@
       </section>
       
       <section class="fields-container">
-        <textarea ng-model="input" placeholder="Type or paste your text here."></textarea>
+        <textarea ng-model="fields.input" trim="false" placeholder="Type or paste your text here."></textarea>
 
         <div class="active-converters">
           <span ng-repeat="converter in activeConverters">
@@ -60,7 +61,14 @@
           <div class="no-converters" ng-hide="activeConverters.length">No converters selected.</div>
         </div>
 
-        <textarea ng-model="output" readonly placeholder="Conversion will appear here."></textarea>
+        <tabset>
+          <tab heading="Output">
+            <textarea ng-model="output" readonly placeholder="Conversion will appear here."></textarea>
+          </tab>
+          <tab heading="HTML Preview">
+            <div class="preview" ng-bind-html-unsafe="output"></div>
+          </tab>
+        </tabset>
       </section>
     </section>
 
@@ -70,12 +78,14 @@
       Powered by <a href="http://www.virgentech.com/">Virgen Technologies</a> and <a href="http://angularjs.org/">AngularJS</a>.
     </footer>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
-    <script type="text/javascript" src="js/lib/jshash-2.2/md5-min.js"></script>
-    <script type="text/javascript" src="js/lib/jshash-2.2/sha1-min.js"></script>
-    <script type="text/javascript" src="js/lib/jshash-2.2/sha256-min.js"></script>
-    <script type="text/javascript" src="js/lib/jshash-2.2/sha512-min.js"></script>
-    <script type="text/javascript" src="js/lib/coffee-script/coffee-script.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script type="text/javascript" src="/js/lib/angular-ui/ui-bootstrap-tpls-0.4.0.min.js"></script>
+    <script type="text/javascript" src="/js/lib/jshash-2.2/md5-min.js"></script>
+    <script type="text/javascript" src="/js/lib/jshash-2.2/sha1-min.js"></script>
+    <script type="text/javascript" src="/js/lib/jshash-2.2/sha256-min.js"></script>
+    <script type="text/javascript" src="/js/lib/jshash-2.2/sha512-min.js"></script>
+    <script type="text/javascript" src="/js/lib/coffee-script/coffee-script.js"></script>
+    <script type="text/javascript" src="/js/lib/markdown/markdown.js"></script>
     <script type="text/javascript" src="/js/converty.js"></script>
   </body>
 </html>

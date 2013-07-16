@@ -1,7 +1,7 @@
 (function(){
   "use strict";
 
-  var converty = angular.module('converty', []);
+  var converty = angular.module('converty', ['ui.bootstrap']);
 
   converty.factory('storage', function($window) {
     var storage = {};
@@ -13,17 +13,42 @@
     return storage;
   });
 
+  // TODO: Properly detect where to insert spaces
+  converty.directive('autoindent', function($parse) {
+    return {
+      require: 'ngModel',
+      link: function($scope, $element, $attrs) {
+        var onKeypress = function($event) {
+          if ('Enter' === $event.keyIdentifier) {
+            var caret = $element.prop('selectionStart');
+            var model = $parse($attrs.ngModel);
+            var value = model($scope);
+            if (caret < value.length) return;
+            var lines = value.split('\n');
+            var line = lines.pop();
+            var spaces = line.match(/^( *)/)[0];
+            $scope.$apply(function() {
+              model.assign($scope, value + '\n' + spaces);
+            });
+            $event.preventDefault();
+          }
+        };
+        $element.bind('keypress', onKeypress);
+      }
+    };
+  });
+
   converty.controller('MainController', function($scope, storage) {
     $scope.activeConverters = [];
-    $scope.input = storage.input;
+    $scope.fields = { input: storage.input };
 
-    $scope.$watch('input', function(value) {
+    $scope.$watch('fields.input', function(value) {
       storage.input = value;
       $scope.buildOutput();
     });
 
     $scope.buildOutput = function() {
-      var value = $scope.input;
+      var value = $scope.fields.input;
       
       angular.forEach($scope.activeConverters, function(converter) {
         try {
@@ -208,6 +233,13 @@
           var obj = JSON.parse(value);
           return JSON.stringify(obj, undefined, 2);
         }
+      },
+      {
+        name: 'Markdown',
+        converter: function(value) {
+          return markdown.toHTML(value);
+        },
+        preview: true
       }
     ];
 
@@ -236,6 +268,14 @@
       return converter.params && $scope.isConverterActive(converter);
     };
 
+    $scope.previewable = function() {
+      var previewable = false;
+      angular.forEach($scope.activeConverters, function(converter) {
+        if (converter.preview) previewable = true;
+      });
+      return previewable;
+    };
+
     $scope.$watch('activeConverters', function(converters) {
       storage.activeConverters = JSON.stringify(converters);
       $scope.buildOutput();
@@ -254,7 +294,7 @@
             if (converter.name != activeConverter.name) return;
             if (converter.params && activeConverter.params) {
               // Reload params
-              converter.params = activeConverter.params;
+              angular.extend(converter.params, activeConverter.params);
             }
             $scope.activeConverters.push(converter);
           });

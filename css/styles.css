@@ -8,7 +8,7 @@ body{
   margin: 0 20px;
   padding: 30px;
   font-family: Lato;
-  font-size: 100%;
+  font-size: 85%;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.8);
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
@@ -20,6 +20,11 @@ body{
   transition: all 0.25s ease;
 }
 
+/* Prevent flash of unstyled content */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none;
+}
+
 header{
   overflow: hidden;
   border-bottom: 2px solid #eee;
@@ -28,6 +33,10 @@ header{
 header h1{
   float: left;
   padding-right: 20px;
+}
+
+header p{
+  margin-top: 1em;
 }
 
 #content{
@@ -44,6 +53,10 @@ footer{
 h1{
   margin: 0;
   padding: 0;
+}
+
+p.info{
+  margin: 1em 0;
 }
 
 a{
@@ -80,13 +93,19 @@ textarea:focus{
   box-shadow: inset 0 6px 6px -6px rgba(0, 0, 0, 0.5);
 }
 
+textarea[readonly]{
+  background: #fff;
+}
+
 .convertors-container{
   float: left;
   width: 20%;
 }
 
 .fields-container{
-  margin-left: 22%;
+  float: left;
+  margin-left: 2%;
+  width: 78%;
 }
 
 ul.converters{
@@ -253,6 +272,11 @@ ul.params input[type=text]{
 
 .no-converters{
   padding: 5px 0;
+}
+
+.preview{
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
 a.forkme{
